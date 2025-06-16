@@ -1,13 +1,12 @@
+import java.util.List;
 
 public abstract class Pokemon {
     private final String name;
-    private final int level;
-    private final int hp;
     private final String food;
     private final String sound;
-
+    private int level;
+    private int hp;
     private String type;
-    private String enemy;
 
     public Pokemon(String name, int level, int hp, String food, String sound) {
         this.name = name;
@@ -18,7 +17,7 @@ public abstract class Pokemon {
     }
 
     //    getters
-    public String getName(){
+    public String getName() {
         return name;
     }
 
@@ -42,16 +41,13 @@ public abstract class Pokemon {
         return type;
     }
 
-    public String getEnemy() {
-        return enemy;
-    }
-
     //    setter
-    public void setType(String type){
-        this.type = type;
-    }
-
-    public void setEnemy(String enemy) {
-        this.enemy = enemy;
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 }
+
+
+
+
+
