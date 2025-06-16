@@ -1,8 +1,7 @@
-import java.util.List;
+import java.util.*;
 
 // Los in deze klasse alle foutmeldingen op door (abstracte) klassen met variabelen en methodes te maken en een interface met methodes (en soms een import).
 public class PokemonGymImpl implements PokemonGym {
-
 
     List<Pokemon> pokemons;
 
@@ -55,7 +54,7 @@ public class PokemonGymImpl implements PokemonGym {
             System.out.println("Its " + owner.getName() + "'s turn to attack");
             gymOwnerAttacks(gymPokemon, pokemon);
             System.out.println("Its " + trainer.getName() + "'s turn to attack");
-            attackOrChange(pokemon, gymPokemon, trainer, owner);
+            attackFeedOrChange(pokemon, gymPokemon, trainer, owner);
 
         }
         if(pokemon.getHp() <= 0){
@@ -260,5 +259,35 @@ public class PokemonGymImpl implements PokemonGym {
             fightRound(trainer, gym, pokemon, gymPokemon);
         }
     }
+
+    @Override
+    public void attackFeedOrChange(Pokemon pokemon, Pokemon gymPokemon, PokemonTrainer trainer, PokemonGymOwner gym){
+        Scanner speler_A = new Scanner(System.in);
+
+        System.out.println("Do you want to attack, feed or change your pokemon?");
+        System.out.println("Type a for attack, f for feed or c for change");
+        String choice = speler_A.nextLine();
+
+        if (choice.equalsIgnoreCase("a")) {
+            String attack = chooseAttackPlayer(pokemon);
+            performAttackPlayer(pokemon, gymPokemon, attack);
+        } else if (choice.equalsIgnoreCase("f")) {
+            String food = pokemon.getFood();
+            feedPokemon(pokemon, food);
+            attackOrChange(pokemon, gymPokemon, trainer, gym);
+            fightRound(trainer, gym, pokemon, gymPokemon);
+        } else {
+            pokemon = choosePokemon(trainer);
+            attackOrChange(pokemon, gymPokemon, trainer, gym);
+            fightRound(trainer, gym, pokemon, gymPokemon);
+        }
+    }
+
+    public void feedPokemon(Pokemon pokemon, String food){
+        System.out.println(pokemon.getName() + " eats " + pokemon.getFood() + "." );
+        pokemon.setHp(pokemon.getHp() + 20);
+        System.out.println(pokemon.getName() + " gaines 20 hp and now has " + pokemon.getHp() + " hp.");
+    }
+
 
 }
